@@ -7,7 +7,11 @@
 <header></header>
 <div class="blog">
     <div class="container">
-        <p>Пациенты</p>
+        <h3>Средний возраст</h3>
+        <p th:text="${avgAge}"></p>
+        <h3>Дисперсия</h3>
+        <p th:text="${dispers}"></p>
+        <h1>Пациенты</h1>
         <table>
             <thead>
             <th>ID</th>

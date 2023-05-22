@@ -19,6 +19,8 @@ public class PatientController {
     @GetMapping("/")
     public String getAll(Model model){
         model.addAttribute("list",patientService.getAllList());
+        model.addAttribute("avgAge", patientService.calculateAverageAge());
+        model.addAttribute("dispers", patientService.calculateAgeVariance());
         return "main";
     }
     @Async

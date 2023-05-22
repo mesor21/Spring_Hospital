@@ -11,6 +11,7 @@ public class Patient {
     private String dischargeDate;
 
     public Patient() {
+        this.dateOfBirth = "1970-01-01";
     }
 
     public Patient(Long id, String firstName, String lastName, String middleName, String dateOfBirth, String diagnosis, String patientRegistrationDate, String dischargeDate) {

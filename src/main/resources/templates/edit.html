@@ -25,13 +25,13 @@
                     <table style="{width: 100%}">
                         <tr>
                             <td th:text=${patient.getId}></td>
-                            <td><input th:value="${patient.getFirstName}" type="text" id="firstName" name="firstName"></td>
-                            <td><input th:value="${patient.getLastName}" type="text" id="lastName" name="lastName"></td>
-                            <td><input th:value="${patient.getMiddleName}" type="text" id="middleName" name="middleName"></td>
-                            <td><input th:value="${patient.getDateOfBirth}" type="text" id="dateOfBirth" name="dateOfBirth"></td>
-                            <td><input th:value="${patient.getDiagnosis}" type="text" id="diagnosis" name="diagnosis"></td>
-                            <td><input th:value="${patient.getPatientRegistrationDate}" type="text" id="patientRegistrationDate" name="patientRegistrationDate"></td>
-                            <td><input th:value="${patient.getDischargeDate}" type="text" id="dischargeDate" name="dischargeDate"></td>
+                            <td><input th:value="${patient.getFirstName}" type="text" id="firstName" name="firstName" placeholder="firstName"></td>
+                            <td><input th:value="${patient.getLastName}" type="text" id="lastName" name="lastName" placeholder="lastName"></td>
+                            <td><input th:value="${patient.getMiddleName}" type="text" id="middleName" name="middleName" placeholder="middleName"></td>
+                            <td><input th:value="${patient.getDateOfBirth}" type="text" id="dateOfBirth" name="dateOfBirth" placeholder="yyyy-mm-dd"></td>
+                            <td><input th:value="${patient.getDiagnosis}" type="text" id="diagnosis" name="diagnosis" placeholder="diagnosis"></td>
+                            <td><input th:value="${patient.getPatientRegistrationDate}" type="text" id="patientRegistrationDate" name="patientRegistrationDate" placeholder="yyyy-mm-dd"></td>
+                            <td><input th:value="${patient.getDischargeDate}" type="text" id="dischargeDate" name="dischargeDate" placeholder="yyyy-mm-dd"></td>
                         </tr>
                         <tr>
                             <td colspan="7">
