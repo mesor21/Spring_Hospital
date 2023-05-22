@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<header></header>
+<div class="blog">
+    <div class="container">
+        <p>Пациенты</p>
+        <table>
+            <thead>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Дата рождения</th>
+            <th>Диагноз</th>
+            <th>Постановка на учёт</th>
+            <th>Выписка</th>
+            </thead>
+            <tr th:each="patient: ${list}">
+                <td th:text="${patient.getId}"></td>
+                <td th:text="${patient.getFirstName}"></td>
+                <td th:text="${patient.getLastName}"></td>
+                <td th:text="${patient.getMiddleName}"></td>
+                <td th:text="${patient.getDateOfBirth}"></td>
+                <td th:text="${patient.getDiagnosis}"></td>
+                <td th:text="${patient.getPatientRegistrationDate}"></td>
+                <td th:text="${patient.getDischargeDate}"></td>
+                <td><a th:href="@{/edit/{id}(id=${patient.getId})}"
+                       class="btn3">Редактировать</a></td>
+            </tr>
+        </table>
+        <form th:action="@{/new}" method="get">
+            <button class="btn1 button" type="submit" method="get" >Добавить пациента</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

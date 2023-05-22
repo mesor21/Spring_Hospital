@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<header></header>
+<div class="blog">
+    <div class="container">
+        <p>Параметров сотрудников</p>
+        <table>
+            <thead>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Дата рождения</th>
+            <th>Диагноз</th>
+            <th>Постановка на учёт</th>
+            <th>Выписка</th>
+            </thead>
+            <tbody>
+            <tr th:each="patient: ${patient}">
+                <form th:action="'/edit/' + ${patient.getId}" method="post">
+                    <table style="{width: 100%}">
+                        <tr>
+                            <td th:text=${patient.getId}></td>
+                            <td><input th:value="${patient.getFirstName}" type="text" id="firstName" name="firstName"></td>
+                            <td><input th:value="${patient.getLastName}" type="text" id="lastName" name="lastName"></td>
+                            <td><input th:value="${patient.getMiddleName}" type="text" id="middleName" name="middleName"></td>
+                            <td><input th:value="${patient.getDateOfBirth}" type="text" id="dateOfBirth" name="dateOfBirth"></td>
+                            <td><input th:value="${patient.getDiagnosis}" type="text" id="diagnosis" name="diagnosis"></td>
+                            <td><input th:value="${patient.getPatientRegistrationDate}" type="text" id="patientRegistrationDate" name="patientRegistrationDate"></td>
+                            <td><input th:value="${patient.getDischargeDate}" type="text" id="dischargeDate" name="dischargeDate"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="7">
+                                <div class="tableFooter">
+                                    <a th:href="@{/delete/{id}(id=${patient.getId})}">
+                                        <button class="btn1" type="button">Удалить</button>
+                                    </a>
+                                    <a th:href="'/edit /' + ${patient.getId}">
+                                        <button class="btn1" type="submit">Подтвердить изменения</button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
