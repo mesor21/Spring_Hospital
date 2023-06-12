@@ -1,17 +1,17 @@
 package com.example.demo.entity;
 
 public class Patient {
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String middleName;
-    private String dateOfBirth;
-    private String diagnosis;
-    private String patientRegistrationDate;
-    private String dischargeDate;
+    private Long id; // Уникальный идентификатор пациента
+    private String firstName; // Имя пациента
+    private String lastName; // Фамилия пациента
+    private String middleName; // Отчество пациента
+    private String dateOfBirth; // Дата рождения пациента
+    private String diagnosis; // Диагноз пациента
+    private String patientRegistrationDate; // Дата регистрации пациента
+    private String dischargeDate; // Дата выписки пациента
 
     public Patient() {
-        this.dateOfBirth = "1970-01-01";
+        this.dateOfBirth = "1970-01-01"; // Устанавливаем значение по умолчанию для даты рождения
     }
 
     public Patient(Long id, String firstName, String lastName, String middleName, String dateOfBirth, String diagnosis, String patientRegistrationDate, String dischargeDate) {
@@ -24,6 +24,8 @@ public class Patient {
         this.patientRegistrationDate = patientRegistrationDate;
         this.dischargeDate = dischargeDate;
     }
+
+    // Геттеры и сеттеры для всех полей
 
     public Long getId() {
         return id;

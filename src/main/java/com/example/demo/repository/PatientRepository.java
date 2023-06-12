@@ -19,6 +19,7 @@ public class PatientRepository {
     private final String filePlace = "src/main/resources/static/patient.json";
     private Gson gson;
 
+    // Компаратор для сравнения пациентов по их идентификатору
     private Comparator<Patient> idComparator = new Comparator<Patient>() {
         @Override
         public int compare(Patient o1, Patient o2) {
@@ -29,16 +30,17 @@ public class PatientRepository {
     public PatientRepository(Gson gson) {
         this.gson = gson;
     }
+
+    // Метод для загрузки данных о пациентах из файла
     @Async
     private List<Patient> loadData() {
         var list = new ArrayList<Patient>();
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filePlace));
-            list = gson.fromJson(bufferedReader, new TypeToken<List<Patient>>() {
-            }.getType());
+            list = gson.fromJson(bufferedReader, new TypeToken<List<Patient>>() {}.getType());
             bufferedReader.close();
-            System.out.println("Lighting objects have been read from " + filePlace + " file.");
-            list.sort(idComparator);
+            System.out.println("Patient objects have been read from " + filePlace + " file.");
+            list.sort(idComparator); // Сортировка списка пациентов по их идентификатору
             return list;
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,60 +48,71 @@ public class PatientRepository {
         return null;
     }
 
+    // Метод для записи данных о пациентах в файл
     @Async
-    private void writeData(List<Patient> employee) {
+    private void writeData(List<Patient> patientList) {
         try {
             FileWriter fileWriter = new FileWriter(filePlace);
-            gson.toJson(employee, fileWriter);
+            gson.toJson(patientList, fileWriter);
             fileWriter.close();
-            System.out.println("Lighting objects have been saved to " + filePlace + " file.");
+            System.out.println("Patient objects have been saved to " + filePlace + " file.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    // Метод для получения пациента по его идентификатору
     @Async
     public Patient getByID(Long id) {
-        List<Patient> employee = loadData();
-        var buff = employee.stream().filter(x -> x.getId() == Integer.parseInt(id.toString())).findFirst().get();
+        List<Patient> patientList = loadData();
+        var buff = patientList.stream().filter(x -> x.getId() == Integer.parseInt(id.toString())).findFirst().get();
         return buff;
     }
+
+    // Метод для удаления пациента по его идентификатору
     @Async
-    public void delete(Long myClassId) {
-        List<Patient> myClassList = loadData();
-        myClassList.removeIf(x -> myClassId - 1 >= 0 && x.getId() == myClassId);
-        writeData(myClassList);
+    public void delete(Long patientId) {
+        List<Patient> patientList = loadData();
+        patientList.removeIf(x -> patientId - 1 >= 0 && x.getId() == patientId);
+        writeData(patientList);
     }
+
+    // Метод для сохранения пациента
     @Async
-    public void save(Patient employee) {
-        List<Patient> myClassList = loadData();
-        if (myClassList.isEmpty()) {
-            employee.setId(Long.valueOf(1));
+    public void save(Patient patient) {
+        List<Patient> patientList = loadData();
+        if (patientList.isEmpty()) {
+            patient.setId(Long.valueOf(1));
         } else {
-            employee.setId(Long.valueOf(myClassList.get(myClassList.size() - 1).getId() + 1));
+            patient.setId(Long.valueOf(patientList.get(patientList.size() - 1).getId() + 1));
         }
-        myClassList.add(employee);
-        writeData(myClassList);
+        patientList.add(patient);
+        writeData(patientList);
     }
+
+    // Метод для получения всех пациентов
     @Async
     public List<Patient> findAll() {
-        List<Patient> myClassList = loadData();
-        return myClassList;
+        List<Patient> patientList = loadData();
+        return patientList;
     }
+
+    // Метод для обновления информации о пациенте
     @Async
     public Patient update(Patient patient) {
-        List<Patient> employees = loadData();
-        if (!employees.isEmpty() && patient != null) {
+        List<Patient> patientList = loadData();
+        if (!patientList.isEmpty() && patient != null) {
             var id = 0;
-            for (var item : employees) {
+            for (var item : patientList) {
                 if (item.getId() == patient.getId()) {
                     break;
                 }
                 id = id + 1;
             }
-            employees.set(id, patient);
+            patientList.set(id, patient);
         }
-        writeData(employees);
-        employees = loadData();
-        return employees.stream().filter(x -> (x.getId()) == patient.getId()).toList().get(0);
+        writeData(patientList);
+        patientList = loadData();
+        return patientList.stream().filter(x -> (x.getId()) == patient.getId()).toList().get(0);
     }
 }

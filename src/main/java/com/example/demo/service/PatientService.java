@@ -10,39 +10,54 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
 @Service
 public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
+
+    // Метод для получения списка всех пациентов
     @Async
-    public List<Patient> getAllList(){
+    public List<Patient> getAllList() {
         return patientRepository.findAll();
     }
+
+    // Метод для удаления пациента по его идентификатору
     @Async
-    public void delete(String id){
+    public void delete(String id) {
         patientRepository.delete(Long.valueOf(id));
     }
+
+    // Метод для сохранения нового пациента
     @Async
-    public void saveNew(){
-        Patient employee = new Patient();
-        patientRepository.save(employee);
+    public void saveNew() {
+        Patient patient = new Patient();
+        patientRepository.save(patient);
     }
+
+    // Метод для получения пациента по его идентификатору
     @Async
-    public Patient getById(String id){
+    public Patient getById(String id) {
         return patientRepository.getByID(Long.valueOf(id));
     }
+
+    // Метод для обновления информации о пациенте
     @Async
-    public Patient update(Patient employee){
-        return patientRepository.update(employee);
+    public Patient update(Patient patient) {
+        return patientRepository.update(patient);
     }
+
+    // Метод для вычисления возраста на основе даты рождения
     @Async
     private int calculateAge(String dateOfBirth) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate birthDate = LocalDate.parse(dateOfBirth,formatter); // Предполагается, что дата рождения задана в формате "yyyy-MM-dd"
+        LocalDate birthDate = LocalDate.parse(dateOfBirth, formatter); // Предполагается, что дата рождения задана в формате "yyyy-MM-dd"
         LocalDate currentDate = LocalDate.now();
         Period period = Period.between(birthDate, currentDate);
         return period.getYears();
     }
+
+    // Метод для вычисления среднего возраста пациентов
     @Async
     public double calculateAverageAge() {
         List<Patient> patients = patientRepository.findAll();
@@ -54,6 +69,8 @@ public class PatientService {
         }
         return (double) sumAge / totalPatients;
     }
+
+    // Метод для вычисления дисперсии возраста пациентов
     @Async
     public double calculateAgeVariance() {
         List<Patient> patients = patientRepository.findAll();
