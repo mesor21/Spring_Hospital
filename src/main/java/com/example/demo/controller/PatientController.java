@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PatientController {
     @Autowired
     private PatientService patientService;
+    private String lastname = "Shubnyakova";
 
     // Метод для получения списка всех пациентов и вывода на главную страницу
     @Async
@@ -23,6 +24,7 @@ public class PatientController {
         model.addAttribute("list", patientService.getAllList());
         model.addAttribute("avgAge", patientService.calculateAverageAge());
         model.addAttribute("dispers", patientService.calculateAgeVariance());
+        model.addAttribute("lastname", lastname);
         return "main";
     }
 
@@ -39,6 +41,7 @@ public class PatientController {
     @GetMapping("edit/{id}")
     public String getForEdit(@PathVariable("id") String id, Model model) {
         model.addAttribute("patient", patientService.getById(id));
+        model.addAttribute("lastname", lastname);
         return "edit";
     }
 
@@ -64,5 +67,10 @@ public class PatientController {
     public String delete(@PathVariable("id") String id) {
         patientService.delete(id);
         return "redirect:/";
+    }
+    @Async
+    @GetMapping("/about")
+    public String getAbout(){
+        return "about";
     }
 }
